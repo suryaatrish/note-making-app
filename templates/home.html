@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="banner">
+        <h1>NOTE MAKING APP</h1>
+    </div>
+    <form method="POST" action="/">
+        <input type="text" name="note" placeholder="Enter a note">
+        <button type="submit">Add Note</button>
+    </form>
+
+    <ul>
+    {% for index, note_data in enumerated_notes %}
+        <li>
+            <form method="POST" action="/update/{{ index }}">
+                <input type="text" name="updated_note" value="{{ note_data.note }}">
+                <button type="submit" class="edit">Update</button>
+            </form>
+            <span class="timestamp">{{ note_data.timestamp }}</span>
+            <div class="note-actions">
+                <form method="POST" action="/delete/{{ index }}">
+                    <button type="submit" class="delete">Delete</button>
+                </form>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
